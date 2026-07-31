@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="media/iicon.png" alt="Instruct-Me Logo" width="128" />
+</p>
+
 # Instruct-Me (v1.0)
 
 **VS Code 扩展** —— 智能编程复盘导师 · AI 辅助编程后的知识内化工具
