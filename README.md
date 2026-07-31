@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="media/iicon.png" alt="Instruct-Me Logo" width="250" />
+  <img src="media/iicon.png" alt="Instruct-Me Logo" width="400" />
 </p>
 
 # Instruct-Me (v1.0)
