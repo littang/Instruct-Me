@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "instruct-me": {
+      "command": "node",
+      "args": ["out/mcp/server.js"],
+      "cwd": "替换为项目目录路径",
+      "env": {
+        "INSTRUCT_ME_LLM_API_KEY": "sk-你的deepseek密钥"
+      }
+    }
+  }
+}

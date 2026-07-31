@@ -1,0 +1,67 @@
+{
+  "name": "instruct-me",
+  "displayName": "InstructMe",
+  "description": "An interactive instruction assistant sidebar for VS Code",
+  "version": "0.0.1",
+  "publisher": "instruct-me",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/littang/Instruct-Me.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:instruct-me.sidebar"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "instruct-me-sidebar",
+          "title": "InstructMe",
+          "icon": "media/icon.png"
+        }
+      ]
+    },
+    "views": {
+      "instruct-me-sidebar": [
+        {
+          "type": "webview",
+          "id": "instruct-me.sidebar",
+          "name": "Instructions"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "instruct-me.refresh",
+        "title": "InstructMe: Refresh Panel"
+      },
+      {
+        "command": "instruct-me.sendMessage",
+        "title": "InstructMe: Send Message"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "mcp:start": "node out/mcp/server.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0"
+  }
+}
