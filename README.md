@@ -45,13 +45,23 @@ cd Instruct-Me
 
 ## 安装与部署到 VS Code
 
-### 1. 安装依赖
+### 方式一：从 Releases 下载安装包（推荐，无需编译）
+
+1. 打开 [Releases 页面](https://github.com/littang/Instruct-Me/releases)
+2. 下载最新的 `instruct-me-<版本号>.vsix` 文件
+3. VS Code 中打开扩展面板（`Ctrl+Shift+X`）→ 右上角 `...` → **Install from VSIX...**
+4. 选择下载的 `.vsix` 文件 → 安装完成
+5. 左侧活动栏点击 **Instruct-Me** 图标打开侧边栏
+
+### 方式二：源码运行（开发调试）
+
+#### 1. 安装依赖
 
 ```bash
 npm install
 ```
 
-### 2. 编译 TypeScript
+#### 2. 编译 TypeScript
 
 ```bash
 npm run compile
@@ -59,13 +69,13 @@ npm run compile
 
 > 编译产物输出到 `out/` 目录，扩展运行时加载的是编译后的文件。
 
-### 3. 用 VS Code 打开项目
+#### 3. 用 VS Code 打开项目
 
 ```bash
 code .
 ```
 
-### 4. 启动扩展（F5）
+#### 4. 启动扩展（F5）
 
 1. 在 VS Code 中打开本项目文件夹
 2. 按 `F5`（或菜单 `运行` → `开始调试`）
