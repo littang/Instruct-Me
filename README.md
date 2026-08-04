@@ -4,6 +4,17 @@
 
 # Instruct-Me (v1.0)
 
+> **智能编程复盘导师 · AI 辅助编程后的知识内化工具**
+> **AI-Powered Code Review Mentor · Knowledge Internalization for AI-Assisted Programming**
+
+**选择语言 / Choose Language:**
+
+[**中文版**](#中文版) | [**English**](#english)
+
+---
+
+# 中文版
+
 **VS Code 扩展** —— 智能编程复盘导师 · AI 辅助编程后的知识内化工具
 
 > 这是一款**依托 VS Code 的插件**。在 AI 辅助完成代码开发后，通过结构化提问、渐进式解释和深度追问，帮助开发者理解代码、掌握技术思想，实现从"AI 代码使用者"到"AI 协作开发者"的能力提升。
@@ -252,4 +263,258 @@ node test/test_levels.js   # 验证 L1/L2/L3 问题生成
 node test/test_client.js    # 验证 MCP 客户端端到端
 node test/test_llm.js       # 验证 LLM 调用（需设 TEST_API_KEY 环境变量）
 node test/test_prompt.js    # 查看组装后的 Prompt
+```
+
+---
+
+# English
+
+**VS Code Extension** — AI-Powered Code Review Mentor · Knowledge Internalization for AI-Assisted Programming
+
+> Instruct-Me is a **VS Code extension**. After AI assists in completing code development, it helps developers understand the code, master the underlying technical concepts, and grow from "AI Code User" to "AI Collaborative Developer" through structured questioning, progressive explanations, and deep follow-up inquiry.
+
+---
+
+## Features
+
+- **Project Code Analysis**: Scan a project directory with one click (automatically filtering out `node_modules/.git/out` etc.), extracting file listings and content summaries
+- **AI-Generated Review Questions**: Based on project context, generates review questions at **L1/L2/L3** difficulty levels
+  - `L1 Explorer` — focuses on "what does this code do"
+  - `L2 Developer` — focuses on "why this approach"
+  - `L3 Expert` — focuses on "performance / extensibility"
+- **Custom Question Count**: Specify 1~10 questions per run
+- **Collapsible Answers / Keyword Highlighting**: Click to expand answers; keywords are auto-highlighted and clickable for follow-up
+- **Keyword Deep Follow-up**: Click a keyword to open an independent follow-up window; AI explains that keyword in depth without polluting the main review
+- **Save Review Records**: Manually save reviews to `<project>/.instruct-me/sessions.json`
+- **Multi-Model Support**: OpenAI-compatible API format; supports DeepSeek / OpenAI / Claude / Ollama / custom providers
+
+---
+
+## Requirements
+
+| Dependency | Version |
+| ---------- | ------- |
+| Node.js    | >= 18   |
+| VS Code    | >= 1.85 |
+
+---
+
+## Clone from GitHub
+
+```bash
+git clone https://github.com/littang/Instruct-Me.git
+cd Instruct-Me
+```
+
+---
+
+## Installation & Deployment
+
+### Method 1: Install from Releases (recommended, no compilation needed)
+
+1. Open the [Releases page](https://github.com/littang/Instruct-Me/releases)
+2. Download the latest `instruct-me-<version>.vsix` file
+3. In VS Code, open the Extensions panel (`Ctrl+Shift+X`) → `...` in the top-right → **Install from VSIX...**
+4. Select the downloaded `.vsix` file → installation completes
+5. Click the **Instruct-Me** icon in the left Activity Bar to open the sidebar
+
+### Method 2: Run from Source (development/debugging)
+
+#### 1. Install dependencies
+
+```bash
+npm install
+```
+
+#### 2. Compile TypeScript
+
+```bash
+npm run compile
+```
+
+> Compiled output goes to the `out/` directory; the extension loads the compiled files at runtime.
+
+#### 3. Open the project in VS Code
+
+```bash
+code .
+```
+
+#### 4. Launch the extension (F5)
+
+1. Open this project folder in VS Code
+2. Press `F5` (or menu `Run` → `Start Debugging`)
+3. A new **Extension Development Host** window will appear
+4. Find the **Instruct-Me** icon in the left Activity Bar of the new window and click to open the sidebar
+
+---
+
+## Configure API Key
+
+Switch to the **Settings** tab in the sidebar:
+
+1. Select a model platform (DeepSeek / OpenAI / Claude / Ollama / Custom)
+2. Enter your **API Key** (from the provider's console; stored securely in VS Code SecretStorage)
+3. Click **Save**
+4. Click **Test Connection** to verify connectivity
+
+### Where to Get API Keys
+
+| Platform             | API Key URL                                |
+| -------------------- | ------------------------------------------ |
+| DeepSeek             | https://platform.deepseek.com → API Keys   |
+| OpenAI               | https://platform.openai.com → API Keys     |
+| OpenRouter (Claude)  | https://openrouter.ai → Keys               |
+| Ollama (local)       | No key required, just run Ollama locally   |
+
+### Multiple Saved Configurations
+
+You can save multiple model configurations (e.g., "My DeepSeek", "My Kimi") at the top of the Settings page. Select one from the dropdown to switch; already-configured API keys don't need to be re-entered.
+
+### Custom Providers
+
+When selecting "Custom":
+
+1. Find the Base URL and Model from the provider's API docs (usually the "Chat Completions" endpoint and model list)
+2. Model names must match the docs exactly — don't invent them
+3. Generate the API Key in the provider's console
+
+Common references:
+
+- Qwen (Tongyi Qianwen): `https://dashscope.aliyuncs.com/compatible-mode/v1`
+- Zhipu AI: `https://open.bigmodel.cn/api/paas/v4`
+- Doubao: `https://ark.cn-beijing.volces.com/api/v3`
+- Kimi (Moonshot): `https://api.moonshot.cn/v1`
+
+---
+
+## Usage Guide
+
+### Flow 1: Generate Review Questions
+
+1. **Select Project**: Click the `...` button next to the path box and choose the project folder to review
+2. **Scan & Analyze**: Click "Scan & Analyze"; the extension analyzes the project structure and extracts code summaries
+3. **Choose Level & Count**: `L1/L2/L3` + question count (1~10)
+4. **Generate Review**: Click "Generate Review"; the AI generates questions at the selected level (a privacy confirmation appears on first use)
+5. Click a question title to expand its answer; keywords are auto-highlighted
+
+### Flow 2: Keyword Deep Follow-up
+
+1. Expand the answer of a question
+2. Click any **keyword tag**
+3. The sidebar switches to follow-up mode, showing "Follow-up: <keyword>"
+4. Type a question in the input box and press Enter; the AI explains that keyword in depth
+5. Click "← Back" to return to the review list (the follow-up session is independent and doesn't pollute the main review)
+
+### Flow 3: Save Review Records
+
+After generating questions, click the "Save Record" button. The review is saved to:
+
+```
+<project-path>/.instruct-me/sessions.json
+```
+
+---
+
+## Using as an MCP Server (optional)
+
+The MCP Server in this project can be invoked by any MCP-compatible client (Claude Desktop, Cursor, Trae, etc.).
+
+### Method 1: Launch from the command line
+
+```bash
+npm run mcp:start
+# equivalent to node out/mcp/server.js
+```
+
+### Method 2: Configure in an MCP client
+
+Add to the client's config file (see `mcp.example.json`):
+
+```json
+{
+  "mcpServers": {
+    "instruct-me": {
+      "command": "node",
+      "args": ["out/mcp/server.js"],
+      "cwd": "/absolute/path/to/project",
+      "env": {
+        "INSTRUCT_ME_LLM_API_KEY": "YOUR_API_KEY"
+      }
+    }
+  }
+}
+```
+
+### Exposed MCP Tools
+
+| Tool                | Description                                  | Params                           |
+| ------------------- | -------------------------------------------- | -------------------------------- |
+| `analyze_project`   | Scan a project directory; return file list + content summaries | `projectPath`        |
+| `generate_review`   | Generate review questions                    | `context`, `level` (L1/L2/L3)    |
+
+---
+
+## Project Structure
+
+```
+Instruct-Me/
+├── src/                        # Source code
+│   ├── extension.ts            # Extension entry (sidebar, message routing)
+│   ├── config.ts               # Multi-model config management (SecretStorage)
+│   ├── session.ts              # Review record persistence
+│   ├── llm/
+│   │   └── provider.ts         # LLM gateway (OpenAI-compatible, streaming/retry)
+│   ├── mcp/
+│   │   ├── server.ts           # MCP Server (analyze_project / generate_review)
+│   │   ├── client.ts           # MCP client (spawns subprocess inside the extension)
+│   │   └── llm.ts              # LLM invocation inside the MCP Server
+│   ├── prompts/
+│   │   └── reviewPrompts.ts    # L1/L2/L3 Prompt Engine
+│   └── webview/
+│       └── sidebar.ts          # Webview frontend source (TS)
+├── media/                      # Webview static assets
+│   ├── sidebar.js              # Frontend logic (render, interaction, follow-up)
+│   ├── sidebar.css             # Styles (adapts to the VS Code theme)
+│   └── icon.png                # Sidebar icon
+├── test/                       # Test scripts
+├── out/                        # Compiled output (generated by npm run compile)
+├── package.json                # Extension manifest
+├── tsconfig.json               # TypeScript config
+└── mcp.example.json            # MCP config template
+```
+
+---
+
+## FAQ
+
+**Q: Nothing happens when I press F5?**
+A: Make sure `.vscode/launch.json` exists (included in this project) and that you've opened this project folder.
+
+**Q: JSON parse error when generating questions?**
+A: Format issues in the LLM response are usually handled automatically. If it keeps happening, it may be a network or model issue — try once more.
+
+**Q: Test Connection keeps failing?**
+A: Check that the API Key is correct, the right platform is selected, and your network can reach the provider.
+
+**Q: Model not found (404)?**
+A: The model name is wrong. Copy the exact name from the provider's "model list" in their docs.
+
+---
+
+## Development
+
+```bash
+npm run compile    # compile
+npm run watch      # watch-mode compile
+npm run mcp:start  # start MCP Server (for debugging)
+```
+
+## Tests
+
+```bash
+node test/test_levels.js   # verify L1/L2/L3 question generation
+node test/test_client.js   # verify MCP client end-to-end
+node test/test_llm.js      # verify LLM calls (requires TEST_API_KEY env var)
+node test/test_prompt.js   # inspect the assembled Prompt
 ```
